@@ -1,61 +1,49 @@
 import org.junit.Test;
-import java.util.Collections;
+
 import java.util.List;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 
 public class SILab2Test {
 
-    @Test(expected = RuntimeException.class)
-    public void testEveryBranchTestCase1() {
-        SILab2.checkCart(null, 0);
-    }
+    @Test
+    public void testEveryBranch() {
+        System.out.println("Test allItems == null");
+        assertThrows(RuntimeException.class, () -> SILab2.checkCart(null, 100));
 
-    @Test(expected = RuntimeException.class)
-    public void testEveryBranchTestCase2() {
-        List<Item> allItems = Collections.singletonList(new Item(null, null, 0, 0));
-        SILab2.checkCart(allItems, 0);
-    }
+        System.out.println("Test name == null, barcode == null");
+        assertThrows(RuntimeException.class, () -> SILab2.checkCart(List.of(new Item("Item", null, 300, 0)), 100));
 
-    @Test(expected = RuntimeException.class)
-    public void testEveryBranchTestCase3() {
-        List<Item> allItems = Collections.singletonList(new Item("Item", "barcodeID", 0, 0));
-        SILab2.checkCart(allItems, 0);
+        System.out.println("Testing if barcode has invalid character");
+        assertThrows(RuntimeException.class, () -> SILab2.checkCart(List.of(new Item("Item", "123b23", 100, 0)), 100));
+
+        System.out.println("Test discount > 0, price >= 300, barcode[0] == '0', sum >= payment");
+        assertTrue(SILab2.checkCart(List.of(new Item("Item", "012123", 350, 0.25F)), 100));
+
+        System.out.println("Test sum < payment, discount < 0");
+        assertFalse(SILab2.checkCart(List.of(new Item("Item", "012123", 100, 0)), 50));
+
     }
 
     @Test
-    public void testEveryBranchTestCase4() {
-        List<Item> allItems = Collections.singletonList(new Item("Item", "012123", 350, 10));
-        assertTrue(SILab2.checkCart(allItems, 4000));
-    }
-
-    @Test
-    public void testEveryBranchTestCase5() {
-        List<Item> allItems = Collections.singletonList(new Item("Item", "123123", 250, -10));
-        assertFalse(SILab2.checkCart(allItems, 150));
-    }
-
-    @Test
-    public void testMultipleConditionTestCaseTTT() {
-        Item item = new Item("Item", "012312", 350, 10);
+    public void testMultipleCondition() {
+        Item item = new Item(null, null, 0, 0);
+        // Test Case TTT
+        item.setPrice(350);
+        item.setDiscount(0.1F);
+        item.setBarcode("012123");
         assertTrue(item.getPrice() > 300 && item.getDiscount() > 0 && item.getBarcode().charAt(0) == '0');
-    }
 
-    @Test
-    public void testMultipleConditionTestCaseTTF() {
-        Item item = new Item("Item", "123123", 350, 10);
+        // Test Case TTF
+        item.setBarcode("123123");
         assertFalse(item.getPrice() > 300 && item.getDiscount() > 0 && item.getBarcode().charAt(0) == '0');
-    }
 
-    @Test
-    public void testMultipleConditionTestCaseTFX() {
-        Item item = new Item("Item", "abcxyz", 350, 0);
+        // Test Case TFX
+        item.setDiscount(0);
         assertFalse(item.getPrice() > 300 && item.getDiscount() > 0 && item.getBarcode().charAt(0) == '0');
-    }
 
-    @Test
-    public void testMultipleConditionTestCaseFXX() {
-        Item item = new Item("Item", "abcxyz", 200, 0);
+        // Test Case FXX
+        item.setPrice(200);
         assertFalse(item.getPrice() > 300 && item.getDiscount() > 0 && item.getBarcode().charAt(0) == '0');
     }
 }
