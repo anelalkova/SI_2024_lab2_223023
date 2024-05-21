@@ -1,6 +1,7 @@
 # Анастасија Лалкова 223023
 # Слика од Control Flow Graph
-![Dijagrami_SI-Лаб 2](https://github.com/anelalkova/SI_2024_lab2_223023/assets/115743219/cec36e0f-b0a4-46e9-84aa-999bca1d22fa)
+![Dijagrami_SI-Лаб 2](https://github.com/anelalkova/SI_2024_lab2_223023/assets/115743219/48c8a2ff-25af-4fae-b5dd-5270bbf5c9eb)
+
 # Цикломатска комплексност 
 Цикломатска комплексност за овој код е 10, и истата ја добив со броење на бројот на региони во Control Flow Graph. 
 
