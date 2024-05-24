@@ -26,10 +26,10 @@ if condition = (item.getPrice() > 300 && item.getDiscount() > 0 && item.getBarco
 == '0')<br>
 
 **TTT:** item.getPrice() = 350; item.getDiscount() = 0.1F; item.getBarcode() = "012123"<br>
-350 > 300 ќе врати точно, 10 > 0 ќе врати точно, '0' == '0' ќе врати точно<br>
+350 > 300 ќе врати точно, 0.1 > 0 ќе врати точно, '0' == '0' ќе врати точно<br>
 
-**TTF:** item.getPrice() = 350; item.getDiscount() = 10; item.getBarcode() = "123123"<br>
-350 > 300 ќе врати точно, 10 > 0 ќе врати точно, '1' == '0' ќе врати неточно<br>
+**TTF:** item.getPrice() = 350; item.getDiscount() = 0.1F; item.getBarcode() = "123123"<br>
+350 > 300 ќе врати точно, 0.1F > 0 ќе врати точно, '1' == '0' ќе врати неточно<br>
 
 **TFX:** item.getPrice() = 350; item.getDiscount() = 0; item.getBarcode() = "abcxyz"<br>
 350 > 300 ќе врати точно, 0 > 0 ќе врати неточно, бидејќи во if условот имаме "&&" или логичко "И", доколку еден од условите не е исполнет, останатите не не интересираат и поради тоа нема да се проверат.<br>
